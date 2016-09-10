@@ -9,9 +9,10 @@ import (
 	"strings"
 	//"log"
 
+	"sync"
+
 	. "github.com/playlyfe/go-graphql/language"
 	"github.com/playlyfe/go-graphql/utils"
-	"sync"
 )
 
 type ResolveParams struct {
@@ -112,7 +113,6 @@ func (executor *Executor) resolveNamedType(ntype ASTNode) *NamedType {
 			return unmodifiedType.(*NamedType)
 		}
 	}
-	return nil
 }
 
 // TODO: Implement type printer
@@ -190,10 +190,10 @@ func (executor *Executor) variableValue(context interface{}, ntype ASTNode, inpu
 			}
 		} else {
 			value, err := executor.variableValue(context, ttype.Type, input)
+			result = append(result, value)
 			if err != nil {
 				return nil, err
 			}
-			result = append(result, value)
 		}
 		return result, nil
 	}
@@ -1284,7 +1284,6 @@ func (executor *Executor) completeValue(reqCtx *RequestContext, objectType *Obje
 			Field:   field,
 		}
 	}
-	return nil, nil
 }
 
 func (executor *Executor) resolveFieldOnObject(reqCtx *RequestContext, objectType *ObjectTypeDefinition, object interface{}, fieldType ASTNode, firstField *Field) (interface{}, error) {

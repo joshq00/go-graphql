@@ -371,8 +371,6 @@ func LexText(lexer *Lexer) StateFn {
 			return lexer.Errorf(`GraphQL Syntax Error (%d:%d) Invalid character "%s" found in document`, lexer.Line, lexer.Column-1, lexer.runeToString(rn))
 		}
 	}
-	lexer.Emit(EOF)
-	return nil
 }
 
 func LexNumber(lexer *Lexer) StateFn {
@@ -433,7 +431,6 @@ func LexComment(lexer *Lexer) StateFn {
 			return LexText
 		}
 	}
-	return LexText
 }
 
 func LexQuote(lexer *Lexer) StateFn {

@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"testing"
+
 	. "github.com/playlyfe/go-graphql/language"
 	. "github.com/smartystreets/goconvey/convey"
-	"testing"
 )
 
 type Author struct {
@@ -16,7 +17,7 @@ type Author struct {
 	Author        *Author       `json:"author"`
 	Title         string        `json:"title"`
 	Body          string        `json:"body"`
-	keywords      []interface{} `json:"keywords"`
+	Keywords      []interface{} `json:"keywords"`
 	RecentArticle *Article      `json:"recentArticle"`
 }
 
